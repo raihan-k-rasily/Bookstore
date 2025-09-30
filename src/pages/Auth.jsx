@@ -1,55 +1,64 @@
 import { faUser } from '@fortawesome/free-regular-svg-icons'
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const Auth = ({register}) => {
+  const [viewPasswordStatus,setViewPasswordStatus] = useState(false)
+  const [userDetails,setUserDetails] = useState({username:"",email:"",password:""})
   return (
-    <div className='w-full min-h-screen flex  justify-center items-center flex-col bg-[url("/bg-auth.jpg")]  bg-cover bg-center'>
-    <div className="p-10">
-      <h1 className="text-3xl font-bold">Book Store</h1>
-      <div className='bg-black text-white p-5 text-center my-5'>
-        <div style={{width:'100px',height:'100px',borderRadius:'50%'}} className='border mb-5 flex justify-center items-center'>
-          <FontAwesomeIcon icon={faUser} className='text-3xl'/>
+     <>
+      <div className="flex items-center justify-center p-5   w-full min-h-screen  flex-col  bg-[url('/bg-auth.jpg')] bg-no-repeat bg-cover">
+        <h1 className='font-bold text-3xl my-5 text-black' >BOOK STORE</h1>
+        <div className='bg-black  p-5 rounded-2xl  shadow-2xl  flex-col '>
+            <div className='flex items-center justify-center flex-col ' >
+              <FontAwesomeIcon icon={faUser} className='border border-white p-5 text-white text-2xl rounded-full  ' style={{width:'50px',height:'50px', borderRadius:'50%'}} />
+              <p className='font-bold text-white text-2xl my-2'>{register ? "Register" :"Login"}</p>
+            </div>
+             <form>
+              {register &&
+                <input value={userDetails.username} onChange={e=>setUserDetails({...userDetails,username:e.target.value})} type="text" placeholder='User Name' className='px-3 py-2 my-2 w-full bg-white rounded' />
+              }
+               <input type="email" value={userDetails.email} onChange={e=>setUserDetails({...userDetails,email:e.target.value})} placeholder='Email Id' className='px-3 py-2 my-2 w-full bg-white rounded' />
+                 <div className='flex items-center'>
+                   <input type={viewPasswordStatus?"text":"password"} value={userDetails.password} onChange={e=>setUserDetails({...userDetails,password:e.target.value})} placeholder='Password' className='px-3 py-2 my-2 w-full bg-white rounded' />
+                   {
+                    !viewPasswordStatus?
+                    <FontAwesomeIcon onClick={()=>setViewPasswordStatus(!viewPasswordStatus)} style={{marginLeft:'-30px'}} className='text-gray-500 cursor-pointer' icon={faEye}/>
+                    :
+                   <FontAwesomeIcon onClick={()=>setViewPasswordStatus(!viewPasswordStatus)}  style={{marginLeft:'-30px'}} className='text-gray-500 cursor-pointer' icon={faEyeSlash}/>
+                   }
+                 </div>
+                 <div className='flex justify-between mb-5 '>
+                  <p className='text-sm text-yellow-400 tracking-tighter'>*never share  the password  with others</p>
+                  <p className='underline text-sm text-white'>forget password</p>
+                 </div>
+  
+                {
+                  register? 
+                   <button className='w-full  py-2 rounded bg-green-800 text-white'>Register</button>
+                   :
+                    <button className='w-full  py-2 rounded bg-green-800 text-white'>Login</button>
+                }
+                <div className='text-center my-3 text-white'>
+                 ---------or------------
+               </div>
+               {/* google auth  */}
+               {
+                  register ? 
+                  <p  className='text-white text-center text-sm' >Are You Already A user? <Link to={'/login'} className='underline text-yellow-400' >Login</Link></p>
+                  :
+                   <p className='text-white text-center text-sm'>Are You  A New  USer? <Link to={'/register'} className='underline text-yellow-400' >Register</Link></p>
+               }
+               
+             </form>
+
+               
         </div>
-        <h1 className='text-2xl'>{register?"Register":"Login"}</h1>
-        <form className="my-5 w-full">
-          {
-            register &&
-            
-          <input type="text" placeholder='Username' className="bg-white p-2 rounded placeholder-gray-500 my-5" />
-          }
-          <input type="text" placeholder='Email ID' className="bg-white p-2 rounded placeholder-gray-500 my-5" />
-          <input type="text" placeholder='Password' className="bg-white p-2 rounded placeholder-gray-500" />
-          <div className="flex justify-between">
-            <p className="text-sm text-orange-300">*Never share your password with others</p>
-            <button className='text-sm underline'>Forget Password</button>
-          </div>
-          <div className="text-center">
-            {
-              register?
-              
-            <button className="bg-green-700 p-2 w-full rounded">Register</button>
-            
-            :
-            
-            <button className="bg-green-700 p-2 w-full rounded">Login</button>
-            }
-          </div>
-          {/* Google auth */}
-          <div className="my-5 text-center">
-            {
-              register?
-            <p className='text-blue-600'>Are you Already a user? <Link to={'/login'} className='underline ms-5'>Login</Link> </p>
-            :
-            <p className='text-blue-600'>Are you  a New user? <Link to={'/register'} className='underline ms-5'>Register</Link> </p>
-              
-            }
-          </div>
-        </form>
       </div>
-    </div>
-    </div>
+           
+    </>
   )
 }
 

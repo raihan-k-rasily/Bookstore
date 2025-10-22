@@ -8,7 +8,7 @@ ToastContainer
 
 const Auth = ({ register }) => {
   const [viewPasswordStatus, setViewPasswordStatus] = useState(false)
-  const [userDetails, setUserDetails] = useState({ username: "", email: "", password: "" })
+  const [userDetails, setUserDetails] = useState({ username: "", email: "", password  : "" })
 
   // console.log(userDetails);
 

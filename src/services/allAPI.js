@@ -9,8 +9,16 @@ import SERVERURL from "./serverURL"
         return await commonAPI("POST",`${SERVERURL}/register`,reqBody)
     }
 
-    // LOGIN API
+    // LOGIN API   
+ export const registerAPI = async (reqBody) => {
+        return await commonAPI("POST",`${SERVERURL}/register`,reqBody)
+    }
+
     // HOME BOOKS API
+        export const registerAPI = async (reqBody) => {
+        return await commonAPI("POST",`${SERVERURL}/register`,reqBody)
+    }
+
     // ALL CAREER API
 // AUTHERIZED USER API - USER
     // VIEW ALL BOOKS
